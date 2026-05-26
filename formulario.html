@@ -5,11 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="shortcut icon" href="./assets/images/among_us_player_red_icon_156942.png" type="image/x-icon">
+    <link rel="stylesheet" href="./css/superhero.css">
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
+    <script src="./scripts/formulario.js"></script>
 
     <title>Document</title>
 </head>
@@ -50,6 +52,7 @@
                         <label for="inputNacimiento" class="form-label">Fecha Nacimiento:</label>
                         <input type="date" name="" id="inputNacimiento" class="form-control">
                     </div>
+
                     <div class="col">
                         <label for="selectNacionalidad" class="form-label">Nacionalidad:</label>
                         <select name="" id="selectNacionalidad" class="form-select">
@@ -58,6 +61,31 @@
                             <option value="3">Venezolana</option>
                             <option value="4">Peruana</option>
                         </select>
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col">
+                        <label for="inputContrasena" class="form-label">Contraseña</label>
+                        <input type="password" name="contrasena" id="inputContrasena" class="form-control">
+                    </div>
+                    <div class="col">
+                        <label for="inputRepetirContrasena" class="form-label">Repetir Contraseña</label>
+                        <input type="password" name="contrasena" id="inputRepetirContrasena" class="form-control">
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col">
+                        <label for="inputDireccion" class="form-label">Dirección:</label>
+                        <input type="text" name="" id="inputDireccion" class="form-control">
+                    </div>
+
+                    <div class="col">
+                        <label for="inputFoto" class="form-label">Foto Personal:</label>
+                        <input type="file" name="foto" id="inputFoto" class="form-control">
                     </div>
                 </div>
                 <br>
@@ -85,17 +113,10 @@
                 <br>
 
                 <div class="row">
-                    <div class="col">
-                        <label for="inputDireccion" class="form-label">Dirección:</label>
-                        <input type="text" name="" id="inputDireccion" class="form-control">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-9"></div>
-                    <div class="col-3">
-                        <input type="reset" value="Cancelar" class="btn btn-secondary">
-                        <input type="submit" value="Enviar" class="btn btn-primary">
+                    <div class="col d-flex justify-content-end">
+                        <input type="reset" value="Cancelar" class="btn btn-secondary me-2">
+                        <!-- <input type="submit" value="Enviar" class="btn btn-primary"> -->
+                         <button type="button" class="btn btn-primary" onclick="validarFormulario()">Enviar</button>
                     </div>
                 </div>
             </div>
