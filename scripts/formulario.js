@@ -12,5 +12,10 @@ function validarFormulario(){
     let nombre = document.getElementById('inputNombre')
     let rut = document.getElementById('inputRut')
     
-    alert(nombre.value + '\n' + rut.value)
+    if(nombre.value == ''){
+        nombre.classList.add('alerta','is-invalid')
+    }else{
+        nombre.classList.remove('alerta','is-invalid')
+        nombre.classList.add('correcto','is-valid')
+    }
 }
