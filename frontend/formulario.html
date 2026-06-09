@@ -37,7 +37,7 @@
     <br />
 
     <div class="container">
-        <p class="h3">Formulario de Registro</p>
+        <p class="h3" onclick="eventoClick()">Formulario de Registro</p>
         <br />
 
         <form action="">
@@ -45,11 +45,11 @@
                 <div class="row">
                     <div class="col">
                         <label for="inputNombre" class="form-label">Nombre Completo:</label>
-                        <input type="text" name="" id="inputNombre" class="form-control" />
+                        <input type="text" name="" id="inputNombre" class="form-control" onchange="validarInput(this)" />
                     </div>
                     <div class="col">
                         <label for="inputRut" class="form-label">Rut:</label>
-                        <input type="text" name="" id="inputRut" class="form-control" />
+                        <input type="text" name="" id="inputRut" class="form-control"  onchange="validarRut(this)"/>
                     </div>
                     <div class="col">
                         <label for="selectNacionalidad" class="form-label">Nacionalidad:</label>
@@ -66,15 +66,15 @@
                 <div class="row">
                     <div class="col">
                         <label for="inputEmail" class="form-label">Correo Electrónico:</label>
-                        <input type="email" name="" id="inputEmail" class="form-control" />
+                        <input type="email" name="" id="inputEmail" class="form-control" onchange="validarEmail(this)"/>
                     </div>
                     <div class="col">
                         <label for="inputCelular" class="form-label">Celular Contacto:</label>
-                        <input type="tel" name="" id="inputCelular" class="form-control" />
+                        <input type="tel" name="" id="inputCelular" class="form-control"onchange="validarInput(this)" />
                     </div>
                     <div class="col">
                         <label for="inputNacimiento" class="form-label">Fecha Nacimiento:</label>
-                        <input type="date" name="" id="inputNacimiento" class="form-control" />
+                        <input type="date" name="" id="inputNacimiento" class="form-control" onchange="validarInput(this)"/>
                     </div>
                 </div>
                 <br />
@@ -82,11 +82,11 @@
                 <div class="row">
                     <div class="col">
                         <label for="inputContrasena" class="form-label">Contraseña</label>
-                        <input type="password" name="contrasena" id="inputContrasena" class="form-control" />
+                        <input type="password" name="contrasena" id="inputContrasena" class="form-control" onchange="validarContrasena(this)"/>
                     </div>
                     <div class="col">
                         <label for="inputRepetirContrasena" class="form-label">Repetir Contraseña</label>
-                        <input type="password" name="contrasena" id="inputRepetirContrasena" class="form-control" />
+                        <input type="password" name="contrasena" id="inputRepetirContrasena" class="form-control" onchange="validarConfirmarContrasena(this,document.getElementById('inputContrasena'))" />
                     </div>
                 </div>
                 <br />
@@ -94,12 +94,12 @@
                 <div class="row">
                     <div class="col">
                         <label for="inputDireccion" class="form-label">Dirección:</label>
-                        <input type="text" name="" id="inputDireccion" class="form-control" />
+                        <input type="text" name="" id="inputDireccion" class="form-control" onchange="validarInput(this)"/>
                     </div>
 
                     <div class="col">
                         <label for="inputFoto" class="form-label">Foto Personal:</label>
-                        <input type="file" name="foto" id="inputFoto" class="form-control" />
+                        <input type="file" name="foto" id="inputFoto" class="form-control" onchange="validarInput(this)"/>
                     </div>
                 </div>
                 <br />
