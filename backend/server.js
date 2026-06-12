@@ -29,3 +29,10 @@ const usuario = new mongoose.Schema({
 });
 
 const Usuario = mongoose.model('Usuario',usuario,'usuarios');
+
+aplicacion.post('/guardarUsuario',async (req,res)=>{
+    try{}
+    catch(error){
+        res.status(500).json({message:'No se han podido guardar los datos. ',error});
+    };
+});
