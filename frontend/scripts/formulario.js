@@ -26,7 +26,8 @@ function validarFormulario() {
 
     if (formularioValido == true) {
         alert('Datos ingresados correctamente, enviando datos...')
-        // Enviar datos al servidor
+        
+        
     }
 }
 

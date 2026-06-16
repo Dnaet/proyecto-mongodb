@@ -30,9 +30,15 @@ const usuario = new mongoose.Schema({
 
 const Usuario = mongoose.model('Usuario',usuario,'usuarios');
 
-aplicacion.post('/guardarUsuario',async (req,res)=>{
-    try{}
+aplicacion.post('/guardarUsuario',async (req,res) => {
+    try{
+        const {nombre,rut,nacionalidad,email,celular,fechaNacimiento,contrasena,direccion,foto} = req.body;
+        const nuevoUsuario = new Usuario({nombre,rut,nacionalidad,email,celular,fechaNacimiento,contrasena,direccion,foto});
+        await nuevoUsuario.save();
+
+        res.status(200).json({mensaje:'Datos almacenados correctamente.'})
+    }
     catch(error){
-        res.status(500).json({message:'No se han podido guardar los datos. ',error});
+        res.status(500).json({mensaje:'No se han podido guardar los datos. ',error});
     };
 });
