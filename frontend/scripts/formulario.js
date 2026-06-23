@@ -40,12 +40,13 @@ function validarFormulario() {
                     },
                     body: JSON.stringify(datosUsuario)
                 })
-                console.log(respuesta.json())
+                if(respuesta.ok){
+                    window.location.href = './datos.html';
+                }
             } catch (error) {
                 console.log('Error al guardar los datos:', error)
             }
         }
-
         enviarDatos();
     }
 }
