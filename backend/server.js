@@ -51,3 +51,12 @@ aplicacion.post('/guardarUsuario', async (req, res) => {
         res.status(500).json({ mensaje: 'No se han podido guardar los datos. ', error });
     };
 });
+
+aplicacion.get('/obtenerUsuarios', async (req, res) =>{
+    try{
+        const usuarios = await Usuario.find();
+        res.json(usuarios);
+    }catch(error){
+        res.status(500).json({ mensaje: 'No se han podido obtener los datos. ', error });
+    }
+});
