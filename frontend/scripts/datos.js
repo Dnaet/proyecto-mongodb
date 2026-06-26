@@ -8,7 +8,7 @@ async function obtenerDataUsuarios() {
         if (respuesta.ok) {
             const usuarios = await respuesta.json();
             
-            new DataTable('#example',{
+            new DataTable('#tablaUsuarios',{
                 data:usuarios,
                 columns:[
                     {data:'nombre'},
