@@ -37,7 +37,17 @@ const usuario = new mongoose.Schema({
     }
 });
 
+const pais = new mongoose.Schema({
+    nombre: String,
+    iso2: String,
+    iso3: String,
+    codigoPais: String,
+    nacionalidad: String
+});
+
 const Usuario = mongoose.model('Usuario', usuario, 'usuarios');
+
+const Pais = mongoose.model('Pais', pais, 'paises');
 
 aplicacion.post('/guardarUsuario', async (req, res) => {
     try {
@@ -52,11 +62,20 @@ aplicacion.post('/guardarUsuario', async (req, res) => {
     };
 });
 
-aplicacion.get('/obtenerUsuarios', async (req, res) =>{
-    try{
+aplicacion.get('/obtenerUsuarios', async (req, res) => {
+    try {
         const usuarios = await Usuario.find();
         res.json(usuarios);
-    }catch(error){
+    } catch (error) {
+        res.status(500).json({ mensaje: 'No se han podido obtener los datos. ', error });
+    }
+});
+
+aplicacion.get('/obtenerPaises', async (req, res) => {
+    try {
+        const paises = await Pais.find();
+        res.json(paises);
+    } catch (error) {
         res.status(500).json({ mensaje: 'No se han podido obtener los datos. ', error });
     }
 });

@@ -1,3 +1,7 @@
+window.onload = function () {
+    cargarPaises();
+};
+
 function validarFormulario() {
     const nombre = document.getElementById('inputNombre')
     const rut = document.getElementById('inputRut')
@@ -40,7 +44,7 @@ function validarFormulario() {
                     },
                     body: JSON.stringify(datosUsuario)
                 })
-                if(respuesta.ok){
+                if (respuesta.ok) {
                     window.location.href = './datos.html';
                 }
             } catch (error) {
@@ -141,4 +145,14 @@ function validarConfirmarContrasena(elemento1, elemento2) {
         }
 
     }
-}
+};
+
+async function cargarPaises() {
+    try {const respuesta = await fetch('http://localhost:3000/obtenerPaises');
+        if (respuesta.ok) {
+            const paises = await respuesta.json();
+            
+            console.log(paises);
+        }
+     } catch (error) { console.log('Error al cargar la data de paises:', error) }
+};
