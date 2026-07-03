@@ -11,9 +11,9 @@ function validarFormulario() {
     const nacionalidad = document.getElementById('selectNacionalidad')
     const contrasena = document.getElementById('inputContrasena')
     const repContrasena = document.getElementById('inputRepetirContrasena')
-    const direccion = document.getElementById('inputDireccion')
+    const comuna = document.getElementById('inputComuna')
+    const calle = document.getElementById('inputCalle')
     const foto = document.getElementById('inputFoto')
-    const genero = document.querySelector('input[name="radioGenero"]:checked')
 
     let formularioValido = true
 
@@ -25,7 +25,8 @@ function validarFormulario() {
     if (!validarInput(nacionalidad)) { formularioValido = false }
     if (!validarContrasena(contrasena)) { formularioValido = false }
     if (!validarConfirmarContrasena(repContrasena, contrasena)) { formularioValido = false }
-    if (!validarInput(direccion)) { formularioValido = false }
+    if (!validarInput(comuna)) { formularioValido = false }
+    if (!validarInput(calle)) { formularioValido = false }
     if (!validarInput(foto)) { formularioValido = false }
 
     if (formularioValido == true) {
@@ -33,6 +34,15 @@ function validarFormulario() {
 
         const formulario = document.getElementById('formularioRegistro');
         const inputsForm = new FormData(formulario);
+
+        const direccion = {
+            comuna: inputsForm.get('comuna'),
+            calle: inputsForm.get('calle'),
+            numero: inputsForm.get('numero'),
+            departamento: inputsForm.get('departamento')
+        };
+        inputsForm.set('direccion', JSON.stringify(direccion));
+
         const datosUsuario = Object.fromEntries(inputsForm.entries());
 
         const enviarDatos = async () => {
@@ -46,6 +56,8 @@ function validarFormulario() {
                 })
                 if (respuesta.ok) {
                     window.location.href = './datos.html';
+                } else {
+                    console.log(respuesta.json());
                 }
             } catch (error) {
                 console.log('Error al guardar los datos:', error)
@@ -148,10 +160,11 @@ function validarConfirmarContrasena(elemento1, elemento2) {
 };
 
 async function cargarPaises() {
-    try {const respuesta = await fetch('http://localhost:3000/obtenerPaises');
+    try {
+        const respuesta = await fetch('http://localhost:3000/obtenerPaises');
         if (respuesta.ok) {
             const paises = await respuesta.json();
-            
+
             const select = document.getElementById('selectNacionalidad');
 
             paises.forEach(pais => {
@@ -161,5 +174,5 @@ async function cargarPaises() {
                 select.appendChild(option);
             });
         }
-     } catch (error) { console.log('Error al cargar la data de paises:', error) }
+    } catch (error) { console.log('Error al cargar la data de paises:', error) }
 };

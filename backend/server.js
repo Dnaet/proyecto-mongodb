@@ -2,6 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 // Iniciamos nuestra aplicación express
 const aplicacion = express();
@@ -21,15 +22,22 @@ aplicacion.listen(PORT, 'localhost', () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
 
+const direccion = new mongoose.Schema({
+    comuna: String,
+    calle: String,
+    numero: String,
+    departamento: String
+});
+
 const usuario = new mongoose.Schema({
     nombre: String,
     rut: String,
-    nacionalidad: Number,
+    nacionalidad: String,
     email: String,
     celular: String,
     fechaNacimiento: Date,
     contrasena: String,
-    direccion: String,
+    direccion: [direccion],
     foto: {
         filename: String,
         path: String,
@@ -52,7 +60,12 @@ const Pais = mongoose.model('Pais', pais, 'paises');
 aplicacion.post('/guardarUsuario', async (req, res) => {
     try {
         const { nombre, rut, nacionalidad, email, celular, fechaNacimiento, contrasena, direccion, foto } = req.body;
-        const nuevoUsuario = new Usuario({ nombre, rut, nacionalidad, email, celular, fechaNacimiento, contrasena, direccion, foto });
+        const direccionUsuario = JSON.parse(direccion);
+
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(contrasena, salt);
+
+        const nuevoUsuario = new Usuario({ nombre, rut, nacionalidad, email, celular, fechaNacimiento, contrasena:hash, direccion: direccionUsuario, foto });
         await nuevoUsuario.save();
 
         res.status(200).json({ mensaje: 'Datos almacenados correctamente.' })
@@ -64,7 +77,14 @@ aplicacion.post('/guardarUsuario', async (req, res) => {
 
 aplicacion.get('/obtenerUsuarios', async (req, res) => {
     try {
-        const usuarios = await Usuario.find();
+        const usuarios = await Usuario.aggregate([{
+            $lookup: {
+                from: 'paises', // Colección que tiene los datos que aagregaremos
+                localField: 'nacionalidad', // Campo que contiene los datos relacionados a la segunda colección
+                foreignField: 'iso2', // campo de la colección secundaria registrado en la colección primaria
+                as: 'paisOrigen'
+            }
+        }]);
         res.json(usuarios);
     } catch (error) {
         res.status(500).json({ mensaje: 'No se han podido obtener los datos. ', error });
