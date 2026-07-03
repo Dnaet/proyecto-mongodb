@@ -152,7 +152,14 @@ async function cargarPaises() {
         if (respuesta.ok) {
             const paises = await respuesta.json();
             
-            console.log(paises);
+            const select = document.getElementById('selectNacionalidad');
+
+            paises.forEach(pais => {
+                const option = document.createElement('option');
+                option.value = pais.iso2;
+                option.textContent = pais.nombre;
+                select.appendChild(option);
+            });
         }
      } catch (error) { console.log('Error al cargar la data de paises:', error) }
 };
