@@ -14,39 +14,20 @@ async function obtenerProyectos() {
             new DataTable('#tablaProyectos', {
                 data: proyectos,
                 columns: [
-                    // 1. Nombre proyecto
                     { data: 'nombre' },
-
-                    // 2. Usuario responsable (nombre)
                     {
                         data: 'datosUsuario',
-                        render: function (data) {
-                            return data?.[0]?.nombre || 'Sin usuario';
-                        }
+                        render: d => d?.[0]?.nombre || 'Sin usuario'
                     },
-
-                    // 3. Rut del usuario
                     {
                         data: 'datosUsuario',
-                        render: function (data) {
-                            return data?.[0]?.rut || 'Sin rut';
-                        }
+                        render: d => d?.[0]?.rut || 'Sin rut'
                     },
-
-                    // 4. Estado
                     { data: 'estado' },
-
-                    // 5. Prioridad
                     { data: 'prioridad' },
-
-                    // 6. Fecha fin
                     {
                         data: 'fechaFin',
-                        render: function (data) {
-                            return data
-                                ? new Date(data).toLocaleDateString()
-                                : 'Sin fecha';
-                        }
+                        render: d => d ? new Date(d).toLocaleDateString() : 'Sin fecha'
                     }
                 ]
             });
