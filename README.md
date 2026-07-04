@@ -33,7 +33,3 @@ Se puede utilizar la herramienta oficial MongoDB Compass para revisar las bases 
    Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
    ```
 
-## Uso
-
-Una vez codificado el backend, iniciar la aplicación, ejecutando el siguiente comando:
-```
