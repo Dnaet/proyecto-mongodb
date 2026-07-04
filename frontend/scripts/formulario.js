@@ -5,29 +5,31 @@ window.onload = function () {
 function validarFormulario() {
     const nombre = document.getElementById('inputNombre')
     const rut = document.getElementById('inputRut')
-    const correo = document.getElementById('inputEmail')
-    const celular = document.getElementById('inputCelular')
+    const correo = document.getElementById('inputCorreo')
+    const telefono = document.getElementById('inputTelefono')
+    const genero = document.getElementById('selectGenero')
     const fechaNac = document.getElementById('inputNacimiento')
     const nacionalidad = document.getElementById('selectNacionalidad')
     const contrasena = document.getElementById('inputContrasena')
     const repContrasena = document.getElementById('inputRepetirContrasena')
     const comuna = document.getElementById('inputComuna')
     const calle = document.getElementById('inputCalle')
-    const foto = document.getElementById('inputFoto')
+    
 
     let formularioValido = true
 
     if (!validarInput(nombre)) { formularioValido = false }
     if (!validarRut(rut)) { formularioValido = false }
     if (!validarEmail(correo)) { formularioValido = false }
-    if (!validarInput(celular)) { formularioValido = false }
+    if (!validarInput(telefono)) { formularioValido = false }
+    if (!validarInput(genero)) {formularioValido = false }
     if (!validarInput(fechaNac)) { formularioValido = false }
     if (!validarInput(nacionalidad)) { formularioValido = false }
     if (!validarContrasena(contrasena)) { formularioValido = false }
     if (!validarConfirmarContrasena(repContrasena, contrasena)) { formularioValido = false }
     if (!validarInput(comuna)) { formularioValido = false }
     if (!validarInput(calle)) { formularioValido = false }
-    if (!validarInput(foto)) { formularioValido = false }
+    
 
     if (formularioValido == true) {
         alert('Datos ingresados correctamente, enviando datos...')
@@ -94,7 +96,7 @@ function validarEmail(elemento) {
 
 function validarContrasena(elemento) {
     if (validarInput(elemento)) {
-        const regexContrasena = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/;
+        const regexContrasena = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,}$/;
         if (regexContrasena.test(elemento.value)) {
             elemento.classList.remove('alerta', 'is-invalid')
             elemento.classList.add('correcto', 'is-valid')

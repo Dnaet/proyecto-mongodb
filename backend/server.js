@@ -29,21 +29,44 @@ const direccion = new mongoose.Schema({
     departamento: String
 });
 
+
+//el Schrema con las modificaciones
+
 const usuario = new mongoose.Schema({
+
     nombre: String,
     rut: String,
-    nacionalidad: String,
-    email: String,
-    celular: String,
+    correo: String,
+    telefono: String,
     fechaNacimiento: Date,
-    contrasena: String,
+    nacionalidad: String,
+    genero: String,
     direccion: [direccion],
-    foto: {
-        filename: String,
-        path: String,
-        mimetype: String
-    }
+    contrasena: String,
+    fechaRegistro: Date,
+    activo: Boolean
+
 });
+
+// nuevo Shrema Proyecto 
+
+const proyecto = new mongoose.Schema({
+
+    usuario:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Usuario'
+    },
+    nombre: String,
+    descripcion: String,
+    fechaInicio: Date,
+    fechaFin: Date,
+    estado: String,
+    presupuesto: Number,
+    prioridad: String,
+    categoria: String,
+    avance: Number
+});
+
 
 const pais = new mongoose.Schema({
     nombre: String,
@@ -55,17 +78,19 @@ const pais = new mongoose.Schema({
 
 const Usuario = mongoose.model('Usuario', usuario, 'usuarios');
 
+const Proyecto = mongoose.model('Proyecto', proyecto, 'proyectos');
+
 const Pais = mongoose.model('Pais', pais, 'paises');
 
 aplicacion.post('/guardarUsuario', async (req, res) => {
     try {
-        const { nombre, rut, nacionalidad, email, celular, fechaNacimiento, contrasena, direccion, foto } = req.body;
-        const direccionUsuario = JSON.parse(direccion);
+        const { nombre, rut, correo, telefono, fechaNacimiento, nacionalidad, genero, contrasena, direccion } = req.body;
 
+        const direccionUsuario = JSON.parse(direccion);
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(contrasena, salt);
 
-        const nuevoUsuario = new Usuario({ nombre, rut, nacionalidad, email, celular, fechaNacimiento, contrasena:hash, direccion: direccionUsuario, foto });
+        const nuevoUsuario = new Usuario({ nombre, rut, correo, telefono, fechaNacimiento, nacionalidad, genero, contrasena: hash, direccion: direccionUsuario, fechaRegistro: new Date(), activo: true });
         await nuevoUsuario.save();
 
         res.status(200).json({ mensaje: 'Datos almacenados correctamente.' })
@@ -73,6 +98,30 @@ aplicacion.post('/guardarUsuario', async (req, res) => {
     catch (error) {
         res.status(500).json({ mensaje: 'No se han podido guardar los datos. ', error });
     };
+});
+
+aplicacion.post('/guardarProyecto', async (req, res) => {
+
+    try {
+
+        const { usuario, nombre, descripcion, fechaInicio, fechaFin, estado, presupuesto, prioridad, categoria, avance } = req.body;
+        const nuevoProyecto = new Proyecto({ usuario, nombre, descripcion, fechaInicio, fechaFin, estado, presupuesto, prioridad, categoria, avance });
+
+        await nuevoProyecto.save();
+
+        res.status(200).json({
+            mensaje: 'Proyecto guardado correctamente.'
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            mensaje: 'No se pudo guardar el proyecto.',
+            error
+        });
+
+    }
+
 });
 
 aplicacion.get('/obtenerUsuarios', async (req, res) => {
@@ -88,6 +137,47 @@ aplicacion.get('/obtenerUsuarios', async (req, res) => {
         res.json(usuarios);
     } catch (error) {
         res.status(500).json({ mensaje: 'No se han podido obtener los datos. ', error });
+    }
+});
+
+aplicacion.get('/listarUsuarios', async (req, res) => {
+    try {
+        const usuarios = await Usuario.find();
+
+        res.json(usuarios);
+
+    } catch (error) {
+        res.status(500).json({
+            mensaje: 'No se pudieron obtener los usuarios.',
+            error
+        });
+    }
+});
+
+
+aplicacion.get('/obtenerProyectos', async (req, res) => {
+
+    try {
+
+        const proyectos = await Proyecto.aggregate([
+            {
+                $lookup: {
+                    from: 'usuarios',
+                    localField: 'usuario',
+                    foreignField: '_id',
+                    as: 'datosUsuario'
+                }
+            }
+        ]);
+
+        res.json(proyectos);
+
+    } catch (error) {
+
+        res.status(500).json({
+            mensaje: 'No se han podido obtener los datos.',
+            error
+        });
     }
 });
 

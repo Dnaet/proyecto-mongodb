@@ -24,10 +24,13 @@
                 <div class="collapse navbar-collapse" id="navbarColor01">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="./datos.html">Datos</a>
+                            <a class="nav-link" href="./datos.html">Datos de Proyectos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./formulario.html">Formulario Registro</a>
+                        </li>
+                        <li class=" nav-item">
+                            <a class="nav-link" href="./proyecto.html">Registro de Proyectos</a>
                         </li>
                     </ul>
                 </div>
@@ -66,19 +69,30 @@
 
                 <div class="row">
                     <div class="col">
-                        <label for="inputEmail" class="form-label">Correo Electrónico:</label>
-                        <input type="email" name="email" id="inputEmail" class="form-control"
+                        <label for="inputCorreo" class="form-label">Correo Electrónico:</label>
+                        <input type="email" name="correo" id="inputCorreo" class="form-control"
                             onchange="validarEmail(this)" />
                     </div>
                     <div class="col">
-                        <label for="inputCelular" class="form-label">Celular Contacto:</label>
-                        <input type="tel" name="celular" id="inputCelular" class="form-control"
+                        <label for="inputTelefono" class="form-label">Telefono:</label>
+                        <input type="tel" name="telefono" id="inputTelefono" class="form-control"
                             onchange="validarInput(this)" />
                     </div>
                     <div class="col">
                         <label for="inputNacimiento" class="form-label">Fecha Nacimiento:</label>
                         <input type="date" name="fechaNacimiento" id="inputNacimiento" class="form-control"
                             onchange="validarInput(this)" />
+                    </div>
+                    <div class="col">
+                        <label for="selectGenero" class="form-label">Género:</label>
+
+                        <select name="genero" id="selectGenero" class="form-select">
+                            <option value="">Seleccione...</option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Femenino">Femenino</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+
                     </div>
                 </div>
                 <br />
@@ -96,11 +110,6 @@
                             onchange="validarConfirmarContrasena(this,document.getElementById('inputContrasena'))" />
                     </div>
 
-                    <div class="col">
-                        <label for="inputFoto" class="form-label">Foto Personal:</label>
-                        <input type="file" name="foto" id="inputFoto" class="form-control"
-                            onchange="validarInput(this)" />
-                    </div>
                 </div>
                 <br />
 
@@ -114,7 +123,7 @@
                         <input type="text" name="comuna" id="inputComuna" class="form-control"
                             onchange="validarInput(this)" />
                     </div>
-                    
+
                     <div class="col">
                         <label for="inputCalle" class="form-label">Calle:</label>
                         <input type="text" name="calle" id="inputCalle" class="form-control"
@@ -126,12 +135,12 @@
                 <div class="row">
                     <div class="col">
                         <label for="inputNumero" class="form-label">Número:</label>
-                        <input type="text" name="numero" id="inputNumero" class="form-control"/>
+                        <input type="text" name="numero" id="inputNumero" class="form-control" />
                     </div>
-                    
+
                     <div class="col">
                         <label for="inputDepartamento" class="form-label">Departamento/Oficina:</label>
-                        <input type="text" name="departamento" id="inputDepartamento" class="form-control"/>
+                        <input type="text" name="departamento" id="inputDepartamento" class="form-control" />
                     </div>
                 </div>
                 <br />
